@@ -28,6 +28,17 @@ $(".submit").on("click", function(event) {
     $("#startDate"),
     $("#monthlyRate")
   ]
+  //Input month
+  var month = moment(startDate, "DD/MM/YY").month() + 1;
+  //Input year
+  var year = moment(startDate, "DD/MM/YY").year();
+  //Total months worked
+  monthwork = (moment().year() - year) * 12 + (moment().month() - month) + 1;
+  //Total amount billed
+  totalbilled = monthlyRate * monthwork;
+
+  console.log(month);
+  console.log(year);
 
 
   if (employeeName != "" && role != "" && startDate != "" && monthlyRate != "") {
@@ -66,7 +77,7 @@ database.ref().on('child_added', function(childSnapshot) {
   $("tbody").append("<tr><td id='employee'> " + childSnapshot.val().employeeName +
     " </td><td id='roleVal'> " + childSnapshot.val().role +
     " </td><td id='beginDate'> " + childSnapshot.val().startDate +
-    " </td><td id='monthWorked'> " + childSnapshot.val().startDate +
+    " </td><td id='monthWorked'> " + monthwork +
     " </td><td id='rateMonthly'> " + childSnapshot.val().monthlyRate +
-    " </td><td id='totalBill'> " + childSnapshot.val().startDate + "</td></tr>")
+    " </td><td id='totalBill'> " + totalbilled + "</td></tr>")
 })
