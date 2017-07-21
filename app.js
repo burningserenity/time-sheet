@@ -34,3 +34,7 @@ $(".submit").on("click", function (event) {
         });
 
     })
+
+    $("<tr>").attr("id", "empName").appendTo("tbody");
+    $("<td>").attr("id", "empNamechild").text("bar").appendTo("#empName");
+    $("<td>").attr("id", "empNaamechild").text("foo").appendTo("#empName");
