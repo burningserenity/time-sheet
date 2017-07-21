@@ -20,7 +20,6 @@ $(".submit").on("click", function (event) {
 
         var employeeName= $("#employeeName").val().trim();
         var role = $("#role").val().trim();
-        //takes the input val from #firstTrainTime parses it out as HH:mm and then formats it as a unix time stamp
         var startDate = $("#startDate").val().trim();
         var monthlyRate = $("#monthlyRate").val().trim();
 
@@ -32,9 +31,25 @@ $(".submit").on("click", function (event) {
             startDate: startDate,
             monthlyRate: monthlyRate
         });
+    
+    if (employeeName != "" && role != "" && startDate != "" && monthlyRate != "") {
+        $("#employeeName").val("");
+        $("#role").val("");
+        $("#startDate").val("");
+        $("#monthlyRate").val("");
+    }
 
     })
 
-    $("<tr>").attr("id", "empName").appendTo("tbody");
-    $("<td>").attr("id", "empNamechild").text("bar").appendTo("#empName");
-    $("<td>").attr("id", "empNaamechild").text("foo").appendTo("#empName");
+    database.ref().on('child_added', function(childSnapshot){
+
+
+      $("tbody").append("<tr><td id='employee'> " + childSnapshot.val().employeeName +
+        " </td><td id='roleVal'> " + childSnapshot.val().role +
+        " </td><td id='beginDate'> " + childSnapshot.val().startDate +
+        " </td><td id='rateMonthly'> " + childSnapshot.val().monthlyRate + "</td></tr>")
+    })
+
+
+
+
